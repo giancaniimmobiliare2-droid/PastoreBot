@@ -1,8 +1,11 @@
-name: Bot Chiesa Sicuro
+name: Bot Ora e Domani
 
 on:
   schedule:
+    # DOMANI MATTINA (e tutti i giorni) alle 08:00 Italiane (07:00 UTC)
     - cron: '0 7 * * *'
+
+  # Questo serve per farlo partire ORA (manualmente col pulsante)
   workflow_dispatch:
 
 jobs:
@@ -10,20 +13,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: 📥 Scarica Codice
         uses: actions/checkout@v3
 
-      - name: Setup Python
+      - name: 🐍 Installa Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      - name: Install Libraries
-        run: pip install requests pandas matplotlib pillow
+      - name: 📚 Installa Librerie
+        run: |
+          pip install requests pandas matplotlib pillow
 
-      - name: Run Bot
+      - name: 🚀 Avvia il Bot
         env:
           FACEBOOK_TOKEN: ${{ secrets.FACEBOOK_TOKEN }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          # Assicurati di aver messo l'ID nel file main.py se non lo hai nei Secrets
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python main.py
