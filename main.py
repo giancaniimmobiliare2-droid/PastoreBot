@@ -272,7 +272,7 @@ if __name__ == "__main__":
             f"{meditazione}\n"
             f"────────────────\n\n"
             f"📍 Chiesa L'Eterno Nostra Giustizia\n\n"
-            f"#fede #vangelodelgiorno #chiesa #gesù #preghiera #bibbia #paroladidio #pentecostale"
+            f"#fede #vangelodelgiorno #chiesa #gesù #preghiera #bibbia #paroladidio #pentecostale ENG24"
         )
         
         # 1. Telegram
