@@ -10,8 +10,8 @@ import json
 from io import BytesIO
 from PIL import Image, ImageOps, ImageDraw, ImageFont
 
-# --- CONFIGURAZIONE ---
-FACEBOOK_TOKEN = os.environ.get("FACEBOOK_TOKEN")
+# Con questo (metti il tuo ID vero):
+TELEGRAM_CHAT_ID = "123456789"
 
 # ✅ QUI HO INSERITO IL TUO NUOVO BOT
 TELEGRAM_TOKEN = "8500964546:AAF_N69eNLxRNLn023At20cLrKspG378u2I"
