@@ -10,18 +10,19 @@ import json
 from io import BytesIO
 from PIL import Image, ImageOps, ImageDraw, ImageFont
 
-# Con questo (metti il tuo ID vero):
-TELEGRAM_CHAT_ID = "123456789"
+# --- CONFIGURAZIONE ---
+FACEBOOK_TOKEN = os.environ.get("FACEBOOK_TOKEN")
 
-# ✅ QUI HO INSERITO IL TUO NUOVO BOT
+# ✅ 1. BOT TELEGRAM (Il tuo nuovo bot)
 TELEGRAM_TOKEN = "8500964546:AAF_N69eNLxRNLn023At20cLrKspG378u2I"
 
-# Questo ID deve essere salvato nei "Secrets" di GitHub o sostituito qui con il numero della chat
-TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
+# ✅ 2. ID CHAT TELEGRAM
+# IMPORTANTE: Sostituisci "123456789" con il tuo numero vero!
+TELEGRAM_CHAT_ID = "123456789"
 
 PAGE_ID = "1479209002311050"
 
-# NUOVO LINK MAKE.COM AGGIORNATO
+# ✅ 3. LINK MAKE.COM AGGIORNATO (Quello che mi hai chiesto)
 MAKE_WEBHOOK_URL = "https://hook.eu1.make.com/hiunkuvfe8mjvfsgyeg0vck4j8dwx6h2"
 
 CSV_FILE = "Frasichiesa.csv"
@@ -202,6 +203,11 @@ def send_telegram(img_bytes, caption):
     if not TELEGRAM_TOKEN: 
         print("❌ Telegram Token Mancante")
         return
+    
+    # Controllo che l'ID sia stato inserito
+    if TELEGRAM_CHAT_ID == "123456789":
+        print("⚠️ ATTENZIONE: Hai lasciato l'ID di esempio (123456789). Il messaggio non arriverà a te!")
+        
     try:
         url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendPhoto"
         files = {'photo': ('img.png', img_bytes, 'image/png')}
@@ -221,10 +227,9 @@ def post_facebook(img_bytes, message):
     except Exception as e: print(f"❌ Facebook Error: {e}")
 
 def trigger_make_webhook(row, img_bytes, meditazione_text):
-    """Invia dati E immagine a Make.com (Multipart)"""
-    print("📡 Inviando dati e immagine a Make.com...")
+    """Invia dati E immagine a Make.com"""
+    print(f"📡 Inviando a Make.com: {MAKE_WEBHOOK_URL}")
     
-    # 1. Dati testuali
     data_payload = {
         "categoria": row.get('Categoria', 'N/A'),
         "riferimento": row.get('Riferimento', 'N/A'),
@@ -234,7 +239,6 @@ def trigger_make_webhook(row, img_bytes, meditazione_text):
         "origine": "Script Python - Chiesa"
     }
 
-    # 2. File Immagine
     files_payload = {
         'upload_file': ('post_chiesa.png', img_bytes, 'image/png')
     }
@@ -272,7 +276,7 @@ if __name__ == "__main__":
             f"{meditazione}\n"
             f"────────────────\n\n"
             f"📍 Chiesa L'Eterno Nostra Giustizia\n\n"
-            f"#fede #vangelodelgiorno #chiesa #gesù #preghiera #bibbia #paroladidio #pentecostale ENG24"
+            f"#fede #vangelodelgiorno #chiesa #gesù #preghiera #bibbia #paroladidio #pentecostale"
         )
         
         # 1. Telegram
@@ -281,7 +285,7 @@ if __name__ == "__main__":
         # 2. Facebook
         post_facebook(img_data, caption)
         
-        # 3. Make.com (CON IMMAGINE E TESTI)
+        # 3. Make.com
         trigger_make_webhook(row, img_data, meditazione)
         
     else:
