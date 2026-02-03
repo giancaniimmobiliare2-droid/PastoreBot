@@ -13,17 +13,17 @@ from PIL import Image, ImageOps, ImageDraw, ImageFont
 # --- CONFIGURAZIONE ---
 FACEBOOK_TOKEN = os.environ.get("FACEBOOK_TOKEN")
 
-# ✅ 1. BOT TELEGRAM (Il tuo nuovo bot)
+# ✅ 1. BOT TELEGRAM
 TELEGRAM_TOKEN = "8500964546:AAF_N69eNLxRNLn023At20cLrKspG378u2I"
 
 # ✅ 2. ID CHAT TELEGRAM
-# IMPORTANTE: Sostituisci "123456789" con il tuo numero vero!
+# ⚠️ SOSTITUISCI "123456789" CON IL TUO ID VERO!
 TELEGRAM_CHAT_ID = "123456789"
 
 PAGE_ID = "1479209002311050"
 
-# ✅ 3. LINK MAKE.COM AGGIORNATO (Quello che mi hai chiesto)
-MAKE_WEBHOOK_URL = "https://hook.eu1.make.com/hiunkuvfe8mjvfsgyeg0vck4j8dwx6h2"
+# ✅ 3. NUOVO LINK MAKE.COM (Aggiornato)
+MAKE_WEBHOOK_URL = "https://hook.eu1.make.com/3eomacplemm46t3lila470oo1sykddx2"
 
 CSV_FILE = "Frasichiesa.csv"
 LOGO_PATH = "logo.png"
@@ -204,10 +204,9 @@ def send_telegram(img_bytes, caption):
         print("❌ Telegram Token Mancante")
         return
     
-    # Controllo che l'ID sia stato inserito
     if TELEGRAM_CHAT_ID == "123456789":
-        print("⚠️ ATTENZIONE: Hai lasciato l'ID di esempio (123456789). Il messaggio non arriverà a te!")
-        
+        print("⚠️ ATTENZIONE: ID Telegram non configurato correttamente!")
+
     try:
         url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendPhoto"
         files = {'photo': ('img.png', img_bytes, 'image/png')}
